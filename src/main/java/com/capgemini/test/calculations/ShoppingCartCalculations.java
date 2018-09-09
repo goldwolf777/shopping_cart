@@ -15,11 +15,19 @@ public class ShoppingCartCalculations {
 
 	public double calculatePrice(List<String> shoppingList) {
 		double totalPrice = 0.00;
+		int totalApples = 0;
+		int totalOranges = 0;
 		for (String item : shoppingList) {
 			if (item.equalsIgnoreCase(APPLE)) {
-				totalPrice += APPLE_PRICE;
+				totalApples++;
+				if (totalApples % 2 != 0) {
+					totalPrice += APPLE_PRICE;
+				}
 			} else if (item.equalsIgnoreCase(ORANGE)) {
-				totalPrice += ORANGE_PRICE;
+				totalOranges++;
+				if (totalOranges % 3 != 0) {
+					totalPrice += ORANGE_PRICE;
+				}
 			} else {
 				LOG.info("Item in the shopping list is unknown: {}", item);
 			}
@@ -27,7 +35,7 @@ public class ShoppingCartCalculations {
 
 		return decimalPlaceFormatter(totalPrice);
 	}
-
+	
 	private Double decimalPlaceFormatter(Double doubleToFormat) {
 		DecimalFormat decimalFormat = new DecimalFormat("#.00");
 		return Double.valueOf(decimalFormat.format(doubleToFormat));
